@@ -1,0 +1,20 @@
+{
+  "name": "local-coder",
+  "version": "0.1.0",
+  "description": "Set up a local coding agent (Ollama + a coding model + OpenCode) on macOS and Linux",
+  "type": "module",
+  "bin": {
+    "local-coder": "src/index.ts"
+  },
+  "scripts": {
+    "start": "bun run src/index.ts",
+    "doctor": "bun run src/index.ts --doctor",
+    "list": "bun run src/index.ts --list",
+    "typecheck": "tsc --noEmit",
+    "build": "bun run scripts/build.ts"
+  },
+  "devDependencies": {
+    "@types/node": "^22",
+    "typescript": "^5"
+  }
+}
