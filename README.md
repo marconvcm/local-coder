@@ -6,7 +6,38 @@ on macOS (Apple Silicon) and Linux (x86_64 and arm64).
 It detects your hardware, shows which models fit, checks the machine with a
 doctor, then installs and wires everything together.
 
-## Run it
+## Install globally (no source, Bun or Node required)
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/marconvcm/local-coder/main/install.sh | bash
+```
+
+The installer detects macOS Apple Silicon or Linux x86_64/arm64, downloads the
+standalone binary from GitHub Releases, verifies its SHA-256 checksum, and installs
+it in `~/.local/bin`. If that directory is not on your PATH, follow the printed
+instruction. Linux binaries require glibc (for example Ubuntu or Debian).
+
+```bash
+local-coder           # interactive setup menu
+local-coder --list    # available models and how they fit your machine
+local-coder --doctor  # check the machine without changing it
+```
+
+Choose **Set up a coding model** in the menu. Once setup finishes, run `opencode`
+from the project you want to work on. Installing this CLI alone does not install
+Ollama, OpenCode or download a model; the setup menu does that.
+
+Run the installer again to update. You can also select a version or destination:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/marconvcm/local-coder/main/install.sh | VERSION=v0.1.0 bash
+curl -fsSL https://raw.githubusercontent.com/marconvcm/local-coder/main/install.sh | sudo INSTALL_DIR=/usr/local/bin bash
+```
+
+To uninstall the CLI: `rm ~/.local/bin/local-coder` (or your custom installation
+path). Ollama, models and OpenCode are managed separately.
+
+## Run from source
 
 ```bash
 bun run src/index.ts            # interactive TUI
@@ -26,6 +57,8 @@ bun run build linux-x64         # one target
 
 Bun cross-compiles, so you can build all three from your Mac and copy the Linux
 binary to another machine. The binaries don't need Bun or Node.
+The build also writes `dist/SHA256SUMS`. For a release, build all targets and
+upload the three binaries and that checksum file to the same GitHub Release.
 
 ## Models
 
